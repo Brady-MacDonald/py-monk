@@ -1,4 +1,5 @@
-import lexer
+from lexer import Lexer
+from tokens import EOF
 
 
 def main(input: str):
@@ -6,12 +7,12 @@ def main(input: str):
     Entry point to program
     """
 
-    lex = lexer.Lexer(input)
+    lex = Lexer(input)
     tok = lex.next_token()
-    while tok.type != "EOF":
+    while tok.Type != EOF:
         print(tok)
         tok = lex.next_token()
 
 
-input = "()()"
+input = "()==()"
 main(input)
