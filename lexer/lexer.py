@@ -1,6 +1,5 @@
 import tokens as tok
 
-
 class Lexer:
     def __init__(self, input) -> None:
         self.read_pos = 0
@@ -17,6 +16,10 @@ class Lexer:
                 token = tok.Token(tok.LPAREN, self.ch)
             case ")":
                 token = tok.Token(tok.RPAREN, self.ch)
+            case "{":
+                token = tok.Token(tok.LBRACE, self.ch)
+            case "}":
+                token = tok.Token(tok.RBRACE, self.ch)
             case "[":
                 token = tok.Token(tok.LBRACKET, self.ch)
             case "]":

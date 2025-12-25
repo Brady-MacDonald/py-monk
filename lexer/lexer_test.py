@@ -1,4 +1,4 @@
-from lexer import Lexer
+from lexer.lexer import Lexer
 import tokens as t
 import unittest
 

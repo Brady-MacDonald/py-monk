@@ -1,5 +1,5 @@
-from lexer import Lexer
-from tokens import EOF
+from lexer.lexer import Lexer
+from lexer.tokens import EOF
 
 
 def main(input: str):
