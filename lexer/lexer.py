@@ -1,4 +1,5 @@
-import tokens as tok
+from lexer import tokens
+
 
 class Lexer:
     def __init__(self, input) -> None:
@@ -7,49 +8,69 @@ class Lexer:
         self.length = len(input)
         self.ch = self.read_char()
 
-    def next_token(self) -> tok.Token:
-        token = tok.Token(tok.ILLEGAL, self.ch)
+    def next_token(self) -> tokens.Token:
+        token = tokens.Token(tokens.ILLEGAL, self.ch)
 
         # Single char tokens
         match self.ch:
             case "(":
-                token = tok.Token(tok.LPAREN, self.ch)
+                token = tokens.Token(tokens.LPAREN, self.ch)
             case ")":
-                token = tok.Token(tok.RPAREN, self.ch)
+                token = tokens.Token(tokens.RPAREN, self.ch)
             case "{":
-                token = tok.Token(tok.LBRACE, self.ch)
+                token = tokens.Token(tokens.LBRACE, self.ch)
             case "}":
-                token = tok.Token(tok.RBRACE, self.ch)
+                token = tokens.Token(tokens.RBRACE, self.ch)
             case "[":
-                token = tok.Token(tok.LBRACKET, self.ch)
+                token = tokens.Token(tokens.LBRACKET, self.ch)
             case "]":
-                token = tok.Token(tok.RBRACKET, self.ch)
+                token = tokens.Token(tokens.RBRACKET, self.ch)
+            case "<":
+                token = tokens.Token(tokens.LT, self.ch)
+            case ">":
+                token = tokens.Token(tokens.GT, self.ch)
+            case ";":
+                token = tokens.Token(tokens.SEMICOLON, self.ch)
+            case ":":
+                token = tokens.Token(tokens.COLON, self.ch)
+            case "*":
+                token = tokens.Token(tokens.ASTERISK, self.ch)
+            case "/":
+                token = tokens.Token(tokens.SLASH, self.ch)
+            case "-":
+                token = tokens.Token(tokens.MINUS, self.ch)
+            case "+":
+                token = tokens.Token(tokens.PLUS, self.ch)
             case "\0":
-                token = tok.Token(tok.EOF, self.ch)
+                token = tokens.Token(tokens.EOF, self.ch)
             case "!":
                 if self.peek_char() == "=":
                     neq = self.ch + self.read_char()
-                    token = tok.Token(tok.NOT_EQ, neq)
+                    token = tokens.Token(tokens.NOT_EQ, neq)
                 else:
-                    token = tok.Token(tok.BANG, self.ch)
+                    token = tokens.Token(tokens.BANG, self.ch)
             case "=":
                 if self.peek_char() == "=":
                     eq = self.ch + self.read_char()
-                    token = tok.Token(tok.EQ, eq)
+                    token = tokens.Token(tokens.EQ, eq)
                 else:
-                    token = tok.Token(tok.ASSIGN, self.ch)
+                    token = tokens.Token(tokens.ASSIGN, self.ch)
 
         # Multi char tokens
         if self.is_char(self.ch):
             word = self.read_word()
-            tok_type = tok.keywords[word]
-            token = tok.Token(tok_type, word)
+            tok_type = tokens.keywords[word]
+            token = tokens.Token(tok_type, word)
 
         self.ch = self.read_char()
 
         return token
 
     def read_word(self) -> str:
+        """
+        Read continuous word
+        """
+
         word = self.ch
         while self.is_char(self.ch):
             self.ch = self.read_char()
@@ -64,7 +85,7 @@ class Lexer:
 
         is_lower = "a" <= ch <= "z"
         is_upper = "A" <= ch <= "Z"
-        return is_lower and is_upper
+        return is_lower or is_upper
 
     def read_char(self) -> str:
         """

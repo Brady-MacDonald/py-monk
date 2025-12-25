@@ -1,5 +1,5 @@
-from lexer.lexer import Lexer
-from lexer.tokens import EOF
+from lexer import Lexer
+from lexer import tokens
 
 
 def main(input: str):
@@ -9,10 +9,10 @@ def main(input: str):
 
     lex = Lexer(input)
     tok = lex.next_token()
-    while tok.Type != EOF:
+    while tok.Type != tokens.EOF:
         print(tok)
         tok = lex.next_token()
 
 
-input = "()==()"
+input = "let()==()"
 main(input)

@@ -28,16 +28,14 @@ ASTERISK = "ASTERISK"
 SLASH = "SLASH"
 
 LT = "LT"
-""" < """
 GT = "GT"
-""" > """
 EQ = "EQ"
 """ '==' """
 NOT_EQ = "NOT_EQ"
 """ != """
 
 COMMA = "COMMA"
-SEMICOLON = "SEMICOLON"
+""" , """
 LPAREN = "LPAREN"
 """ ( """
 RPAREN = "RPAREN"
@@ -50,6 +48,8 @@ LBRACKET = "LBRACKET"
 """ [ """
 RBRACKET = "RBRACKET"
 """ ] """
+SEMICOLON = "SEMICOLON"
+""" ; """
 COLON = "COLON"
 """ : """
 
@@ -61,6 +61,7 @@ class Token(NamedTuple):
 
 # Map keywords to there TokenType
 keywords = {
+    "let": LET,
     "true": TRUE,
     "false": FALSE,
     "let": LET,
